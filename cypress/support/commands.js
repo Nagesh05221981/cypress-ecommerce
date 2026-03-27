@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('seedUser', (user) => {
+    const users = JSON.parse(localStorage.getItem('nova_users')) || {}
+    users[user.email] = { name: user.name, password: user.password }
+    localStorage.setItem('nova_users', JSON.stringify(users))
+})
