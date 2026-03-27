@@ -12,9 +12,7 @@ describe("Verify Login", () => {
     })
     beforeEach(() => {
     cy.seedUser(users.validUser)
-    localStorage.setItem('nova_users', JSON.stringify({
-        'test@example.com': { name: 'Test User', password: 'password123' }
-    }))
+   
     cy.visit("http://localhost:8080/eclat-shop.html")
 })
 
