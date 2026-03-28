@@ -1,42 +1,27 @@
-import HomePage from "../pages/homePage"
-import LoginPage from "../pages/loginPage"
-import SignUpPage from "../pages/signUpPage"
+//import HomePage from "../pages/homePage"
+//import LoginPage from "../pages/loginPage"
+//import SignUpPage from "../pages/signUpPage"
+import { BaseTest } from "../base/baseTest"
+const test = new BaseTest()
 describe("Verify Login", () => {
-    let users
-
-    before (() => {
-        cy.fixture('users').then((data) => {
-            users = data
-        })
-
-    })
-    beforeEach(() => {
-    cy.seedUser(users.validUser)
-   
-    cy.visit("http://localhost:8080/eclat-shop.html")
-})
 
     it("should verify  invalidlogin functionality", () => {
-        const homePage = new HomePage()
-        const loginPage = new LoginPage()
-        homePage.clickLogIn()
-        loginPage.login('wrong username', 'wrong password')
+        
+        test.homePage.clickLogIn()
+        test.loginPage.login('wrong username', 'wrong password')
 })
 
      it("should verify user signup withvalid credentials", () => {
-        const homePage = new HomePage()
-        const signUpPage = new SignUpPage()
-        homePage.clickSignUp()
-        signUpPage.signup(users.newUser.name, users.newUser.email, users.newUser.password   )
-        signUpPage.verifySignupSuccessMessage()
+        test.homePage.clickSignUp()
+        test.signUpPage.signup(test.users.newUser.name, test.users.newUser.email, test.users.newUser.password   )
+        test.signUpPage.verifySignupSuccessMessage()
     })
 
     it("should verify  login with valid credentials functionality", () => {
-        const homePage = new HomePage()
-        const loginPage = new LoginPage()
-        homePage.clickLogIn()
-        loginPage.login(users.validUser.email, users.validUser.password )
-        loginPage.verifySigningInMessage()
+        
+        test.homePage.clickLogIn()
+        test.loginPage.login(test.users.validUser.email, test.users.validUser.password )
+        test.loginPage.verifySigningInMessage()
 })
 
     
