@@ -8,11 +8,11 @@ class LoginPage{
 
  }
     
-    login(){
+    login(email,password){
        // this.elements.logInIcon().click()
         this.elements.loginTab().click()
-        this.elements.emailInput().should('be.visible').clear().type('Test@example.com').blur()
-        this.elements.passwordInput().should('be.visible').clear().type('password123').blur()
+        this.elements.emailInput().should('be.visible').clear().type(email).blur()
+        this.elements.passwordInput().should('be.visible').clear().type(password).blur()
         this.elements.signInButton().should('be.visible').click()
 
     }

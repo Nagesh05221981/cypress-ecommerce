@@ -8,12 +8,12 @@ class SignUpPage{
         createAccountButton: () => cy.get('button.msubmit').contains('Create Account').should('be.visible'),
         successMessage: () => cy.get('#form-signup').find('#s-msg')
 }
-    signup(){
+    signup(name,email,password){
         this.elements.signUpButton().click()
         this.elements.form().within(() => {
-        this.elements.emailInput().type('test8@example.com')
-        this.elements.passwordInput().type('password123')
-        this.elements.fullName().type('Test User8')
+        this.elements.emailInput().type(email)
+        this.elements.passwordInput().type(password)
+        this.elements.fullName().type(name)
         this.elements.createAccountButton().click()
     })
     }

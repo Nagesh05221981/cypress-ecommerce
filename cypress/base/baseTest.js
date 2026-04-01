@@ -1,10 +1,14 @@
 import HomePage from "../pages/homePage"
 import LoginPage from "../pages/loginPage"
 import SignUpPage from "../pages/signUpPage"
+import FilterBars from "../pages/filterBars"
+import  Catalogue from "../pages/catalogue"
 export class BaseTest {
     homePage = new HomePage()
     loginPage = new LoginPage()
     signUpPage = new SignUpPage()
+    filterBars = new FilterBars()
+    catalogue = new Catalogue()
     users = {}
     constructor() {
         before(() => {  

@@ -4,8 +4,18 @@ class HomePage{
         signUpButton: () => cy.get('button.btn.btn-fill').contains('Sign Up').should('be.visible'),
         userChip:     () => cy.get('#user-chip'),
         userNameLabel:() => cy.get('#uname-label'),
-         logoutButton:  () => cy.get('#user-chip').find('button').contains('Out')
+         logoutButton:  () => cy.get('#user-chip').find('button').contains('Out'),
+
+         // Filter Bar
+         filtersBar: () => cy.get('#filters'),
+
     } 
+
+    //Filter bar methods
+    verifyFiltersBarVisible() {
+        this.elements.filtersBar().should('be.visible')
+        this.elements.filtersBar().userNameLabel
+    }
     clickLogIn(){
         this.elements.logInButton().should('be.visible').click()
         
