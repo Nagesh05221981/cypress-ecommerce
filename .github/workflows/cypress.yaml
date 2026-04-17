@@ -35,14 +35,14 @@ jobs:
 
       # 6️⃣ Start static H5 app
       - name: Start H5 Playground
-        run: serve testapp -l 3000 &
+        run: serve testapp -l 8080 &
 
       # 7️⃣ Wait for app
       - name: Wait for app
-        run: npx wait-on http://localhost:3000/eclat-shop.html
+        run: npx wait-on http://localhost:8080/eclat-shop.html
 
       # 8️⃣ Run Cypress tests
       - name: Run Cypress tests
         env:
-          CYPRESS_baseUrl: http://localhost:3000
+          CYPRESS_baseUrl: http://localhost:8080
         run: npx cypress run
