@@ -21,25 +21,27 @@ jobs:
           node-version: 18
           cache: 'npm'
 
-      # 3️⃣ Install Cypress dependencies (root)
+      # 3️⃣ Install root dependencies (Cypress)
       - name: Install root dependencies
         run: npm install
 
-      # 4️⃣ Install H5 Playground dependencies
-      - name: Install Playground dependencies
-        working-directory: testapp
-        run: npm ci
+      # 4️⃣ Install Cypress dependencies if needed
+      - name: Install Cypress dependencies
+        run: npm install
 
-      # 5️⃣ Start H5 Playground app
-      - name: Start Playground App
-        working-directory: testapp
-        run: npm start &
-        
-      # 6️⃣ Wait until app is ready
-      - name: Wait for Playground
-        run: npx wait-on http://localhost:3000
+      # 5️⃣ Install static server
+      - name: Install serve
+        run: npm install -g serve
 
-      # 7️⃣ Run Cypress tests
+      # 6️⃣ Start static H5 app
+      - name: Start H5 Playground
+        run: serve testapp -l 3000 &
+
+      # 7️⃣ Wait for app
+      - name: Wait for app
+        run: npx wait-on http://localhost:3000/eclat-shop.html
+
+      # 8️⃣ Run Cypress tests
       - name: Run Cypress tests
         env:
           CYPRESS_baseUrl: http://localhost:3000
