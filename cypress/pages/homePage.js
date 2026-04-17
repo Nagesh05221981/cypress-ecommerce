@@ -9,6 +9,11 @@ class HomePage{
          // Filter Bar
          filtersBar: () => cy.get('#filters'),
 
+         /// Cart
+         cartIcon: () => cy.get('.cart-pill'),
+         cartBadge: () => cy.get('#cart-count'),
+
+
     } 
 
     //Filter bar methods
@@ -39,6 +44,14 @@ class HomePage{
         this.elements.userNameLabel().should('be.visible').and('contain', exptctedUserName)
     }
     
+    ///// Cart methods
+   
+    openCart(){
+        this.elements.cartIcon().should('be.visible').click()
+    }
+    verifyCartCount(expectedCount){
+        this.elements.cartBadge().should('be.visible').and('contains.text', expectedCount)
+    }
 
 }
 export default HomePage
