@@ -1,0 +1,46 @@
+name: Cypress – H5 Playground Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      # 3️⃣ Install Cypress dependencies (root)
+      - name: Install root dependencies
+        run: npm ci
+
+      # 4️⃣ Install H5 Playground dependencies
+      - name: Install Playground dependencies
+        working-directory: testapp
+        run: npm ci
+
+      # 5️⃣ Start H5 Playground app
+      - name: Start Playground App
+        working-directory: testapp
+        run: npm start &
+        
+      # 6️⃣ Wait until app is ready
+      - name: Wait for Playground
+        run: npx wait-on http://localhost:3000
+
+      # 7️⃣ Run Cypress tests
+      - name: Run Cypress tests
+        env:
+          CYPRESS_baseUrl: http://localhost:3000
+        run: npx cypress run
