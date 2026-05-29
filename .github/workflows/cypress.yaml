@@ -4,44 +4,34 @@ on:
   push:
     branches: [ main ]
   pull_request:
+  workflow_dispatch:   # 👈 THIS enables "Run workflow"
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18.18.2
           cache: 'npm'
 
-      # 3️⃣ Install root dependencies (Cypress)
-      - name: Install root dependencies
+      - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Install Cypress dependencies if needed
-      - name: Install Cypress dependencies
-        run: npm install
-
-      # 5️⃣ Install static server
       - name: Install serve
         run: npm install -g serve
 
-      # 6️⃣ Start static H5 app
       - name: Start H5 Playground
         run: serve testapp -l 8080 &
 
-      # 7️⃣ Wait for app
       - name: Wait for app
         run: npx wait-on http://localhost:8080/eclat-shop.html
 
-      # 8️⃣ Run Cypress tests
       - name: Run Cypress tests
         env:
           CYPRESS_baseUrl: http://localhost:8080
